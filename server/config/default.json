@@ -1,6 +1,5 @@
 {
     "port": 8080,
-    "mongoUri": "mongodb+srv://ReNe_Kash:dG4p6EhJ78yFzX87@cluster0.xbyaelf.mongodb.net/app?retryWrites=true&w=majority",
     "accessSecret": "Ebash Izhevsk wiTH LoVe",
     "refreshSecret": "Ufa city"
   }
