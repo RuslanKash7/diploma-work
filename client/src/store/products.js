@@ -1,19 +1,6 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import productService from "../services/product.service";
 
-// const initialState = {
-//   products: [
-//     { id: 1, name: "Clever", rating: 5 },
-//     { id: 2, name: "Arabella", rating: 4 },
-//     { id: 3, name: "Crockid", rating: 3 },
-//     { id: 4, name: "Bungly Boo", rating: 5 },
-//     { id: 5, name: "Clever" },
-//     { id: 6, name: "Arabella" },
-//     { id: 7, name: "Crockid" },
-//     { id: 8, name: "Bungly Boo" },
-//   ],
-// };
-
 const productsSlice = createSlice({
   name: "products",
   initialState: {

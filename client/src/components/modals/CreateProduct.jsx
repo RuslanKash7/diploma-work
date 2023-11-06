@@ -14,7 +14,7 @@ const CreateProduct = ({ show, onHide }) => {
     name: "",
     price: "",
     totalAmount: 0,
-    file: null,
+    img: null,
     brand: null,
     type: null,
   });
@@ -92,8 +92,8 @@ const CreateProduct = ({ show, onHide }) => {
             placeholder={"Добавьте изображение товарa"}
             className="mt-3 mb-3"
             type="file"
-            name="file"
-            value={data.file}
+            name="img"
+            value={data.img}
             onChange={handleChange}
           />
           {/* <button className="btn btn-primary w-100 mx-auto" type="submit">

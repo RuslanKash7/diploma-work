@@ -4,25 +4,25 @@ const Product = require("../models/Product");
 const ProductInfo = require("../models/ProductInfo");
 const uuid = require("uuid");
 const path = require("path");
+const upload = require("../middleware/upload.middleware");
+
 
 router.post("/", async (req, res) => {
   try {
-    let { info } = req.body;
-
-    // console.log(name, price, brand_id, type_id, rating_id, info);
-
-    let fileName = uuid.v4() + ".jpg";
-
-    // console.log(fileName);
+    let { name, price, brand, type, rating, info } = req.body;
 
     // let { img } = req.files;
-
-    // console.log(img);
-
+    let fileName = uuid.v4() + ".jpg";
     // img.mv(path.resolve(__dirname, "..", "static", fileName));
 
     const newProduct = await Product.create({
-      ...req.body,
+      name,
+      price,
+      brand,
+      type,
+      rating,
+      info,
+      img: fileName,
     });
 
     console.log(newProduct);
@@ -95,18 +95,6 @@ router.get("/:_id", async (req, res) => {
   }
 });
 
-// router.delete("/:_id", async (req, res) => {
-//   try {
-//     const { _id } = req.params;
-//     const list = await Product.findByIdAndRemove({ _id });
-//     res.status(200).send(null);
-//   } catch (e) {
-//     res.status(500).json({
-//       message: "На сервере произошла ошибка. Попробуйте позже",
-//     });
-//   }
-// });
-
 router.delete("/:productId", async (req, res) => {
   try {
     const { productId } = req.params;
@@ -120,7 +108,7 @@ router.delete("/:productId", async (req, res) => {
 });
 
 router.patch("/:productId", async (req, res) => {
-  try { 
+  try {
     const { productId } = req.params;
     const updatedProduct = await Product.findByIdAndUpdate(
       productId,
