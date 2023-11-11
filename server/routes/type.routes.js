@@ -3,7 +3,7 @@ const router = express.Router({ mergeParams: true });
 const Type = require("../models/Type");
 const isRole = require("../middleware/role.middleware");
 
-router.post("/", async (req, res) => {
+router.post("/", isRole("ADMIN"), async (req, res) => {
   try {
     const newType = await Type.create({
       ...req.body,

@@ -6,6 +6,7 @@ import AreYouSureDelBasket from "../modals/AreYouSureDelBasket";
 import { getProductById } from "../../store/products";
 import { updateBasket } from "../../store/basket";
 
+
 const BasketItem = ({ product }) => {
   const dispatch = useDispatch()
   const [areYouSureVisible, setAreYouSureVisible] = useState(false);
@@ -23,7 +24,7 @@ const BasketItem = ({ product }) => {
           <Image
             width={150}
             height={150}
-            src={productsList.img}
+            src={"http://localhost:8080/" + productsList.img}
             alt={"No image yet"}
           />
           <div className="text-black-50 mt-1 d-flex justify-content-between align-items-center">

@@ -23,7 +23,7 @@ module.exports = function (role) {
 
       next();
     } catch (e) {
-      res.status(401).json({ message: "Unauthorized" });
+      res.status(401).json({ message: "Unauthorized or Role is not permitted" });
     }
   };
 };

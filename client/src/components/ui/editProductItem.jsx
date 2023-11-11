@@ -15,7 +15,7 @@ const EditProductItem = ({ product }) => {
           <Image
             width={150}
             height={150}
-            src={product.img}
+            src={"http://localhost:8080/" + product.img}
             alt={"No image yet"}
           />
           <div className="text-black-50 mt-1 d-flex justify-content-between align-items-center">

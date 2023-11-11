@@ -8,6 +8,7 @@ const schema = new Schema(
     rating: [{ type: Schema.Types.ObjectId, ref: "Rating", default: 0 }],
     type: [{ type: Schema.Types.ObjectId, ref: "Type" }],
     brand: [{ type: Schema.Types.ObjectId, ref: "Brand" }],
+    info: [{ type: Schema.Types.ObjectId, ref: "ProductInfo" }],
     // totalAmount: { type: Number, default: 0 },
   },
   {

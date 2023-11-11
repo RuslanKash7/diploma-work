@@ -10,11 +10,11 @@ const path = require("path")
 const app = express();
 
 app.use(express.json());
-app.use(express.static(path.resolve(__dirname, "static")));
+app.use(express.static(path.resolve(__dirname, "static"))); // отображение папки со статикой (изображения)
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-app.use("/api", routes);
 app.use(fileUpload({}));
+app.use("/api", routes);
 
 const PORT = config.get("port") ?? 8080;
 

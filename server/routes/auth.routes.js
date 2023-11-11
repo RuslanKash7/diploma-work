@@ -23,6 +23,7 @@ router.post("/signUp", [
       }
 
       const { email, password, role } = req.body;
+
       const existingUser = await User.findOne({ email });
 
       if (existingUser) {
@@ -42,7 +43,7 @@ router.post("/signUp", [
       });
 
       const newBasket = await Basket.create({
-        user_id: newUser._id,
+        currentUserId: newUser._id,
       });
 
       const tokens = tokenService.generate({

@@ -1,20 +1,17 @@
 const express = require("express");
-const router = express.Router({mergeParams: true});
-const User = require("../models/User")
+const router = express.Router({ mergeParams: true });
+const User = require("../models/User");
+const auth = require("../middleware/auth.middleware");
 
-router.post("/registration", async (req, res)=>{});
+router.get("/", auth, async (req, res) => {
+  try {
+    const list = await User.find();
+    res.status(200).send(list);
+  } catch (e) {
+    res.status(500).json({
+      message: "На сервере произошла ошибка. Попробуйте позже",
+    });
+  }
+});
 
-router.post("/login", async (req, res)=>{});
-
-router.get("/", async (req, res) => {
-    try {
-      const list = await User.find();
-      res.status(200).send(list);
-    } catch (e) {
-      res.status(500).json({
-        message: "На сервере произошла ошибка. Попробуйте позже",
-      });
-    }
-  });
-
-module.exports= router
+module.exports = router;

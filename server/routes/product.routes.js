@@ -4,16 +4,14 @@ const Product = require("../models/Product");
 const ProductInfo = require("../models/ProductInfo");
 const uuid = require("uuid");
 const path = require("path");
-const upload = require("../middleware/upload.middleware");
-
 
 router.post("/", async (req, res) => {
   try {
     let { name, price, brand, type, rating, info } = req.body;
 
-    // let { img } = req.files;
+    let { img } = req.files;
     let fileName = uuid.v4() + ".jpg";
-    // img.mv(path.resolve(__dirname, "..", "static", fileName));
+    img.mv(path.resolve(__dirname, "..", "static", fileName));
 
     const newProduct = await Product.create({
       name,
@@ -28,6 +26,7 @@ router.post("/", async (req, res) => {
     console.log(newProduct);
 
     if (info) {
+      info = JSON.parse(info);
       info.forEach((i) =>
         ProductInfo.create({
           title: i.title,
@@ -36,8 +35,10 @@ router.post("/", async (req, res) => {
         })
       );
     }
+
     res.status(201).send(newProduct);
   } catch (e) {
+    console.error("Error:", e);
     res.status(500).json({
       message: "На сервере произошла ошибка. Попробуйте позже",
     });
@@ -46,30 +47,30 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    let { brand_id, type_id, limit, page } = req.query;
-    page = page || 1;
-    limit = limit || 9;
-    let offset = page * limit - limit + 1;
+    let { brand, type, limit, page } = req.query;
+
+    page = page || 1; // номер страницы
+    limit = limit || 9; // количество товаров на одной строке
+    let offset = (page - 1) * limit; // отступ (не отрабатывает)
 
     let list;
-    if (!brand_id && !type_id) {
-      // list = await Product.findAndCountAll({ limit, offset });
-      // works if write list = await Product.find();
-      list = await Product.find();
+    if (!brand && !type) {
+      list = await Product.find().limit(parseInt(limit)).skip(offset).exec();
     }
-    if (brand_id && !type_id) {
-      list = await Product.findAndCountAll({ brand_id, limit, offset });
+    if (brand && !type) {
+      list = await Product.find({ brand }).limit(limit).skip(offset).exec();
     }
-    if (!brand_id && type_id) {
-      list = await Product.findAndCountAll({ type_id, limit, offset });
+    if (!brand && type) {
+      list = await Product.find({ type }).limit(limit).skip(offset).exec();
     }
-    if (brand_id && type_id) {
-      list = await Product.findAndCountAll({
-        brand_id,
-        type_id,
-        limit,
-        offset,
-      });
+    if (brand && type) {
+      list = await Product.find({
+        brand,
+        type,
+      })
+        .limit(limit)
+        .skip(offset)
+        .exec();
     }
     res.status(200).send(list);
   } catch (e) {
@@ -82,11 +83,7 @@ router.get("/", async (req, res) => {
 router.get("/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
-    const list = await Product.findById({
-      _id,
-      model: ProductInfo,
-      as: "info",
-    }); // ProductInfo nado kak to po drugomu
+    const list = await Product.findById({_id}).populate("info"); // .populate([{model: ProductInfo, as: "info"}]) ProductInfo nado kak to po drugomu
     res.status(200).send(list);
   } catch (e) {
     res.status(500).json({

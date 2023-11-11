@@ -41,7 +41,7 @@ const ProductPage = () => {
           <Image
             width={300}
             height={300}
-            src={product.image}
+            src={"http://localhost:8080/" + product.img}
             alt="Product image"
           />
         </Col>
