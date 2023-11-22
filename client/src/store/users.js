@@ -11,7 +11,7 @@ const initialState = localStorageService.getAccessToken()
       isLoading: true,
       error: null,
       auth: { userId: localStorageService.getUserId() },
-      isLoggedIn: false,
+      isLoggedIn: true,
       dataLoaded: false,
     }
   : {
@@ -20,7 +20,7 @@ const initialState = localStorageService.getAccessToken()
       error: null,
       auth: null,
       isLoggedIn: false,
-      dataLoaded: false
+      dataLoaded: false,
     };
 
 const usersSlice = createSlice({
@@ -122,13 +122,13 @@ export const logOut = () => (dispatch) => {
 };
 
 export const loadUsersList = () => async (dispatch) => {
-    dispatch(usersRequested());
-    try {
-        const { content } = await userService.get();
-        dispatch(usersReceved(content));
-    } catch (error) {
-        dispatch(usersRequestFiled(error.message));
-    }
+  dispatch(usersRequested());
+  try {
+    const { content } = await userService.get();
+    dispatch(usersReceved(content));
+  } catch (error) {
+    dispatch(usersRequestFiled(error.message));
+  }
 };
 
 // export const updateUser = (payload) => async (dispatch) => {

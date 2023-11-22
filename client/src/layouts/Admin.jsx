@@ -19,6 +19,7 @@ const Admin = () => {
             <Button
               variant={"outline-dark"}
               className="mt-4 p-2"
+              style={{ width: "200px" }} 
               onClick={() =>
                 setEditProductVisible((prevState) =>
                   prevState === false ? true : false
@@ -30,6 +31,7 @@ const Admin = () => {
             <Button
               variant={"outline-dark"}
               className="mt-4 p-2"
+              style={{ width: "200px" }} 
               onClick={() => setTypeVisible(true)}
             >
               ИЗМЕНИТЬ ТИПЫ
@@ -37,13 +39,15 @@ const Admin = () => {
             <Button
               variant={"outline-dark"}
               className="mt-4 p-2"
+              style={{ width: "200px" }} 
               onClick={() => setBrandVisible(true)}
             >
-              ИЗМЕНИТЬ БРЭНДЫ
+              ИЗМЕНИТЬ БРЕНДЫ
             </Button>
             <CreateProduct
               show={productVisible}
               onHide={() => setProductVisible(false)}
+              header="Добавить новый товар"
             />
             <CreateBrand
               show={brandVisible}

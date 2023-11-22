@@ -1,27 +1,24 @@
 import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
-import { useSelector } from "react-redux";
-import { getTypes, getTypesLoadingStatus} from "../../store/type";
 
-const TypeBar = () => {
+const TypeBar = ({ isLoadingTypes, selectedItem, items, onItemSelect }) => {
+  if (isLoadingTypes) return "loading";
 
-  const isLoading = useSelector(getTypesLoadingStatus());
-  const types = useSelector(getTypes());
-
-  if (isLoading) return "loading";
-  
   return (
-    <ListGroup>
-      {types.map((type) => (
-        <ListGroup.Item
-          style={{ cursor: "pointer" }}
-          active={type.id === 1 ? " active" : ""}
-          key={type._id}
-        >
-          {type.name}
-        </ListGroup.Item>
-      ))}
-    </ListGroup>
+    <>
+      <ListGroup>
+        {items.map((item) => (
+          <ListGroup.Item
+            onClick={() => onItemSelect(item)}
+            style={{ cursor: "pointer", width: 250  }}
+            active={item._id === selectedItem ? " active" : ""}
+            key={item._id}
+          >
+            {item.name}
+          </ListGroup.Item>
+        ))}
+      </ListGroup>
+    </>
   );
 };
 

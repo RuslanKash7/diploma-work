@@ -110,11 +110,11 @@ const RegisterForm = () => {
         error={errors.role}
       />
       <button
-        className="btn btn-primary w-100 mx-auto"
+        className="btn btn-primary w-100 mx-auto mb-3"
         type="submit"
         disabled={!isValid}
       >
-        Submit
+        Регистрация
       </button>
     </form>
   );

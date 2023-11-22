@@ -1,25 +1,23 @@
 import React, { useState } from "react";
 import TextField from "../common/form/textField";
 import SelectField from "../common/form/selectField";
-import { Button, Dropdown, Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { getProducts } from "../../store/products";
-import { getTypes, getTypesLoadingStatus } from "../../store/type";
-import { getBrands, getBrandsLoadingStatus } from "../../store/brands";
+import { getTypes } from "../../store/type";
+import { getBrands } from "../../store/brands";
 import { createNewProduct } from "../../store/products";
 
-const CreateProduct = ({ show, onHide }) => {
+const CreateProduct = ({ show, onHide, header }) => {
   const dispatch = useDispatch();
   const [data, setData] = useState({
     name: "",
     price: "",
-    totalAmount: 0,
+    // totalAmount: "",
     img: null,
     brand: null,
     type: null,
   });
 
-  const products = useSelector(getProducts());
   const brands = useSelector(getBrands());
   const brandsList = brands.map((p) => ({
     label: p.name,
@@ -39,22 +37,37 @@ const CreateProduct = ({ show, onHide }) => {
     }));
   };
 
+  const handleImgChange = (e) => {
+    setData((prevState) => ({
+      ...prevState,
+      img: e.target.files[0],
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newData = {
-      ...data,
-    };
-    console.log(newData);
-    dispatch(createNewProduct(newData));
-    onHide();
+    // Для передачи изображения на сервер, нужно использовать объект FormData
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("price", data.price);
+    formData.append("brand", data.brand);
+    formData.append("type", data.type);
+    if (data.img) {
+      formData.append("img", data.img);
+    }
+console.log(formData)
+    try {
+      dispatch(createNewProduct(formData));
+      onHide();
+    } catch (error) {
+      console.error("Error creating new product:", error);
+    }
   };
 
   return (
     <Modal show={show} onHide={onHide} size="lg" centered>
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Добавить новый товар
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">{header}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit}>
@@ -72,8 +85,15 @@ const CreateProduct = ({ show, onHide }) => {
             value={data.price}
             onChange={handleChange}
           />
+          {/* <TextField
+            label="Введите количество товара"
+            className="mt-3 mb-1"
+            name="totalAmount"
+            value={data.totalAmount}
+            onChange={handleChange}
+          /> */}
           <SelectField
-            label="Выберите брэнд товара"
+            label="Выберите бренд товара"
             defaultOption="Выберите..."
             name="brand"
             options={brandsList}
@@ -93,12 +113,8 @@ const CreateProduct = ({ show, onHide }) => {
             className="mt-3 mb-3"
             type="file"
             name="img"
-            value={data.img}
-            onChange={handleChange}
+            onChange={handleImgChange}
           />
-          {/* <button className="btn btn-primary w-100 mx-auto" type="submit">
-            Добавить новый товар
-          </button> */}
         </form>
       </Modal.Body>
       <Modal.Footer>

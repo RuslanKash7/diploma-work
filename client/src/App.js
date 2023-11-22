@@ -10,19 +10,25 @@ import Shop from "./layouts/Shop";
 import AppLoader from "./components/ui/hoc/appLoader";
 import { useSelector } from "react-redux";
 import { getIsLoggedIn } from "./store/users";
-
-
+// import localStorageService from "./services/localStorage.service";
+// import { getUserById, getUsersLoadingStatus } from "./store/users";
 
 function App() {
   const isAuth = useSelector(getIsLoggedIn());
-  // const qw = useSelector(getRole());
-  // console.log(qw)
+
+  // console.log(isAuth);
+  // const isLoading = useSelector(getUsersLoadingStatus());
+  // console.log(isLoading);
   // const currentUserId = localStorageService.getUserId();
-  // console.log(currentUserId)
-  // const currentUser = getUserById(currentUserId);
-  // const q = useSelector(getCurrentUserData());
-  // console.log(currentUser);
-  // console.log(q.role)
+  // console.log(currentUserId);
+  // const theUser = useSelector(getUserById(currentUserId));
+  // if (!isLoading) {
+  //   console.log(theUser.role);
+  //   const isAdmin = theUser.role === "ADMIN" ? true : false
+  //   console.log(isAdmin)
+  // }
+
+  // if (isLoading) return "Loading from App..."; так не работает
 
   return (
     <div>
