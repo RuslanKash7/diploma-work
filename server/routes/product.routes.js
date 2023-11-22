@@ -7,11 +7,14 @@ const path = require("path");
 
 router.post("/", async (req, res) => {
   try {
+    console.log(req.body)
     let { name, price, brand, type, rating, info } = req.body;
 
     let { img } = req.files;
     let fileName = uuid.v4() + ".jpg";
     img.mv(path.resolve(__dirname, "..", "static", fileName));
+
+    console.log(req.body)
 
     const newProduct = await Product.create({
       name,

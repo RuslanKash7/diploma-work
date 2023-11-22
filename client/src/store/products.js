@@ -91,7 +91,9 @@ export const getProductByManyIds = (productIds) => (state) => {
 export const createNewProduct = (payload) => async (dispatch) => {
   dispatch(addProductRequested());
   try {
+    console.log(payload)
     const { content } = await productService.createProduct(payload);
+    console.log(content)
     dispatch(productCreated(content));
   } catch (error) {
     dispatch(productsRequestFailed(error.message));

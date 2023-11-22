@@ -10,8 +10,9 @@ const Auth = () => {
     type === "register" ? type : "login"
   );
 
-  const toggleFormType = (params) => {
-    setFormType(prevState => prevState === "register" ? "login" : "register"
+  const toggleFormType = () => {
+    setFormType((prevState) =>
+      prevState === "register" ? "login" : "register"
     );
   };
 
@@ -21,16 +22,23 @@ const Auth = () => {
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-6 offset-md-3 shadow p-4">
-
           {formType === "register" ? (
             <>
               <h3 className="mb-4">Зарегистрируйтесь</h3>
               <RegisterForm />
               <p>
                 Уже зарегистрированы?{" "}
-                <a role="button" onClick={toggleFormType}>
+                <a
+                  role="button"
+                  onClick={toggleFormType}
+                  style={{
+                    textDecoration: "underline",
+                    color: "blue",
+                    cursor: "pointer",
+                  }}
+                >
                   {" "}
-                  Войти
+                  Войти!
                 </a>
               </p>
             </>
@@ -40,8 +48,16 @@ const Auth = () => {
               <LoginForm />
               <p>
                 Нет аккаунта?{" "}
-                <a role="button" onClick={toggleFormType}>
-                  Зарегистрироваться
+                <a
+                  role="button"
+                  onClick={toggleFormType}
+                  style={{
+                    textDecoration: "underline",
+                    color: "blue",
+                    cursor: "pointer",
+                  }}
+                >
+                  Зарегистрироваться!
                 </a>
               </p>
             </>

@@ -56,4 +56,10 @@ export const getBrands = () => (state) => state.brands.entities;
 
 export const getBrandsLoadingStatus = () => (state) => state.brands.isLoading;
 
+export const getBrandById = (brandId) => (state) => {
+  if (state.brands.entities) {
+    return state.brands.entities.find((p) => p._id === brandId);
+  }
+};
+
 export default brandsReducer;

@@ -52,8 +52,8 @@ const ProductPage = () => {
               className="d-flex align-items-center justify-content-center"
               style={{
                 background: `url(${bigStar}) no-repeat center center`,
-                width: 240,
-                height: 240,
+                width: 230,
+                height: 230,
                 backgroundSize: "cover",
                 fontSize: 64,
               }}

@@ -68,11 +68,11 @@ const LoginForm = () => {
       />
       {/* {loginError && <p className="text-danger">{loginError}</p>} */}
       <button
-        className="btn btn-primary w-100 mx-auto"
+        className="btn btn-primary w-100 mx-auto mb-3"
         type="submit"
         disabled={!isValid}
       >
-        Submit
+        Войти
       </button>
     </form>
   );

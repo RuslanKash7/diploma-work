@@ -1,12 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
 import { useSelector } from "react-redux";
-import { getIsLoggedIn, logOut } from "../../store/users";
-
+import { getIsLoggedIn } from "../../store/users";
+// import localStorageService from "./services/localStorage.service";
+// import {getUserById, getUsersLoadingStatus} from "./store/users"
 const Navbar = () => {
   const isAuth = useSelector(getIsLoggedIn());
   // const history = useHistory()
+  // const isLoading = useSelector(getUsersLoadingStatus());
+  // const currentUserId = localStorageService.getUserId();
+  // console.log(currentUserId)
+  // const theUser = useSelector(getUserById(currentUserId));
+  // console.log(theUser);
+  // if (isLoading) return "Loading from App...";
 
   return (
     <nav className="navbar bg-light mb-3">
@@ -41,7 +47,7 @@ const Navbar = () => {
                 </Link>
               ) : (
                 <div>
-                  <form onSubmit={logOut()}>
+                  {/* <form onSubmit={logOut()}>
                     <Button
                       variant={"outline-light"}
                       className="nav-link"
@@ -49,10 +55,10 @@ const Navbar = () => {
                     >
                       Выйти
                     </Button>
-                  </form>
-                  {/* <Link className="nav-link " aria-current="page" to="/auth">
+                  </form> */}
+                  <Link className="nav-link " aria-current="page" to="/logout">
                     Выйти
-                  </Link> */}
+                  </Link>
                 </div>
               )}
             </li>

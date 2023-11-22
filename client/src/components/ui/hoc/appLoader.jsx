@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getIsLoggedIn,
-      getUsersLoadingStatus,
-      loadUsersList
+  getUsersLoadingStatus,
+  loadUsersList,
 } from "../../../store/users";
 import { loadTypesList } from "../../../store/type";
 import { loadBrandsList } from "../../../store/brands";
@@ -21,12 +21,12 @@ const AppLoader = ({ children }) => {
     dispatch(loadTypesList());
     dispatch(loadProductsList());
     dispatch(loadBasketList());
-    dispatch(loadUsersList());
-        if (isLoggedIn) {
-            dispatch(loadUsersList());
-        }
-    }, [isLoggedIn]);
-    if (usersStatusLoading) return "loading";
+    dispatch(loadUsersList()); // зачем здесь если ниже тоже вызов идет???!!!!
+    if (isLoggedIn) {
+      dispatch(loadUsersList());
+    }
+  }, [dispatch, isLoggedIn]);
+  if (usersStatusLoading) return "loading";
 
   return children;
 };
