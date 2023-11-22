@@ -7,7 +7,7 @@ import Pages from "./pages";
 import { paginate } from "../../utils/paginate";
 import _ from "lodash";
 
-const ProductList = ({ selectedTypeId }) => {
+const ProductList = ({ selectedTypeId, selectedBrandId, searchQuery }) => {
   const isLoading = useSelector(getProductsLoadingStatus());
   const products = useSelector(getProducts());
   useEffect(() => {
@@ -18,25 +18,46 @@ const ProductList = ({ selectedTypeId }) => {
   const pageSize = 3;
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedTypeId]);
+  }, [selectedTypeId, selectedBrandId, searchQuery]);
+
+  if (isLoading) return "Loading from NavbarProductList...";
+
+  console.log(searchQuery);
 
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex);
   };
 
-  // function filterProducts(data) {
-  //   const filteredProducts = selectedTypeId
-  //       ? data.filter((d) => d.type === selectedTypeId)
-  //       : data
-  // }
-
-  const toFilterProducts = (data) => {
-    const filteredData = selectedTypeId
-      ? data.filter((d) => d.type.includes(selectedTypeId))
-      : data;
+  const toFilterProducts = (data, selectedTypeId, selectedBrandId) => {
+    let filteredData;
+    if (searchQuery) {
+      filteredData = data.filter(
+        (data) =>
+          data.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
+      );
+    } else {
+      if (!selectedTypeId && !selectedBrandId) {
+        filteredData = data;
+      }
+      if (selectedTypeId && !selectedBrandId) {
+        filteredData = data.filter((d) => d.type.includes(selectedTypeId));
+      }
+      if (!selectedTypeId && selectedBrandId) {
+        filteredData = data.filter((d) => d.brand.includes(selectedBrandId));
+      }
+      if (selectedTypeId && selectedBrandId) {
+        filteredData = data
+          .filter((d) => d.type.includes(selectedTypeId))
+          .filter((d) => d.brand.includes(selectedBrandId));
+      }
+    }
     return filteredData;
   };
-  const filteredProducts = toFilterProducts(products);
+  const filteredProducts = toFilterProducts(
+    products,
+    selectedTypeId,
+    selectedBrandId
+  );
 
   const count = filteredProducts.length;
 

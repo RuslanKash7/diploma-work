@@ -3,8 +3,8 @@ import httpService from "./http.service";
 const productEndpoint = "product/";
 
 const productService = {
-  get: async (typeId, brandId, page, limit = 3) => {
-    const req = await httpService.get(productEndpoint, {typeId, brandId, page, limit});
+  get: async () => {
+    const req = await httpService.get(productEndpoint);
     return req.data;
   },
 
