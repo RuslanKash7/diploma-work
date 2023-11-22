@@ -1,18 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getIsLoggedIn } from "../../store/users";
-// import localStorageService from "./services/localStorage.service";
-// import {getUserById, getUsersLoadingStatus} from "./store/users"
+import {
+  getIsLoggedIn,
+  getUserById,
+  getUsersLoadingStatus,
+} from "../../store/users";
+import localStorageService from "../../services/localStorage.service";
+
 const Navbar = () => {
-  const isAuth = useSelector(getIsLoggedIn());
   // const history = useHistory()
-  // const isLoading = useSelector(getUsersLoadingStatus());
-  // const currentUserId = localStorageService.getUserId();
-  // console.log(currentUserId)
-  // const theUser = useSelector(getUserById(currentUserId));
-  // console.log(theUser);
-  // if (isLoading) return "Loading from App...";
+
+  const isAuth = useSelector(getIsLoggedIn());
+  const isLoading = useSelector(getUsersLoadingStatus());
+  const currentUserId = localStorageService.getUserId();
+  const theUser = useSelector(getUserById(currentUserId));
+  const isAdmin = theUser ? theUser.role === "ADMIN" : false
+
+  if (isLoading) return "Loading from Navbar...";
 
   return (
     <nav className="navbar bg-light mb-3">
@@ -26,13 +31,13 @@ const Navbar = () => {
         </ul>
         <div className="d-flex">
           <ul className="nav">
-            {isAuth && (
+            {isAuth && isAdmin ? (
               <li className="nav-item">
                 <Link className="nav-link " aria-current="page" to="/admin">
                   Панель администратора
                 </Link>
               </li>
-            )}
+            ) : null}
             {isAuth && (
               <li className="nav-item">
                 <Link className="nav-link " aria-current="page" to="/basket">
