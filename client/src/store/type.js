@@ -23,15 +23,32 @@ const typesSlice = createSlice({
     typeCreated: (state, action) => {
       state.entities.push(action.payload);
     },
+    typeRemoved: (state, action) => {
+      state.entities = state.entities.filter((t) => t._id !== action.payload);
+    },
+    typeUpdateSuccessed: (state, action) => {
+      state.entities[
+        state.entities.findIndex((u) => u._id === action.payload._id)
+      ] = action.payload;
+    },
   },
 });
 
 const { reducer: typesReducer, actions } = typesSlice;
 
-const { typesRequested, typesReceved, typesRequestFailed, typeCreated } =
-  actions;
+const {
+  typesRequested,
+  typesReceved,
+  typesRequestFailed,
+  typeCreated,
+  typeRemoved,
+  typeUpdateSuccessed,
+} = actions;
 
 const addTypeRequested = createAction("types/addTypeRequested");
+const removeTypeRequested = createAction("types/removeTypesRequested");
+const updateTypeRequested = createAction("types/updateTypesRequested");
+const updateTypeFailed = createAction("types/updateTypeFailed");
 
 export const loadTypesList = () => async (dispatch) => {
   dispatch(typesRequested());
@@ -50,6 +67,30 @@ export const createNewType = (payload) => async (dispatch) => {
     dispatch(typeCreated(content));
   } catch (error) {
     dispatch(typesRequestFailed(error.message));
+  }
+};
+
+export const removeType = (typeId) => async (dispatch) => {
+  dispatch(removeTypeRequested());
+  try {
+    console.log(typeId)
+    const { content } = await typeService.removeType(typeId);
+    console.log(content)
+    if (!content) {
+      dispatch(typeRemoved(typeId));
+    }
+  } catch (error) {
+    dispatch(typesRequestFailed(error.message));
+  }
+};
+
+export const updateType = (payload) => async (dispatch) => {
+  dispatch(updateTypeRequested());
+  try {
+    const { content } = await typeService.update(payload);
+    dispatch(typeUpdateSuccessed(content));
+  } catch (error) {
+    dispatch(updateTypeFailed(error.message));
   }
 };
 

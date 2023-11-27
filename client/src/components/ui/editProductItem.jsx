@@ -1,12 +1,19 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Button, Card, Col, Image } from "react-bootstrap";
 import star from "../../assets/star.png";
 import EditProduct from "../modals/EditProduct";
 import AreYouSure from "../modals/AreYouSure";
+import { getBrandById, getBrandsLoadingStatus } from "../../store/brands";
 
 const EditProductItem = ({ product }) => {
   const [areYouSureVisible, setAreYouSureVisible] = useState(false);
   const [editProductVisible, setEditProductVisible] = useState(false);
+  const isLoading = useSelector(getBrandsLoadingStatus());
+  const brandId = product.brand.join(", ");
+  const theBrand = useSelector(getBrandById(brandId));
+
+  if (isLoading) return "Loading ...";
 
   return (
     <>
@@ -19,7 +26,7 @@ const EditProductItem = ({ product }) => {
             alt={"No image yet"}
           />
           <div className="text-black-50 mt-1 d-flex justify-content-between align-items-center">
-            <div>{product.brand}</div>
+            <div>{theBrand.name}</div>
             <div className="d-flex align-items-center">
               <div>{product.rating}</div>
               <Image width={16} height={16} src={star} />
@@ -48,6 +55,7 @@ const EditProductItem = ({ product }) => {
       </Col>
       <AreYouSure
         show={areYouSureVisible}
+        header="Вы дейстивтельно хотите удалить этот товар?"
         onHide={() => setAreYouSureVisible(false)}
         value={product._id}
       />
