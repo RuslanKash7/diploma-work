@@ -26,7 +26,7 @@ const EditProductItem = ({ product }) => {
             alt={"No image yet"}
           />
           <div className="text-black-50 mt-1 d-flex justify-content-between align-items-center">
-            <div>{theBrand.name}</div>
+            <div>{theBrand ? theBrand.name : "нет бренда"}</div>
             <div className="d-flex align-items-center">
               <div>{product.rating}</div>
               <Image width={16} height={16} src={star} />

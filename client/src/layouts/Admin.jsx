@@ -6,8 +6,9 @@ import CreateBrand from "../components/modals/CreateBrand";
 import CreateType from "../components/modals/CreateType";
 import EditProductList from "../components/ui/editProductList";
 import { getTypes, getTypesLoadingStatus } from "../store/type";
-import { getBrands } from "../store/brands";
+import { getBrands, getBrandsLoadingStatus } from "../store/brands";
 import EditThingList from "../components/ui/editThingList";
+import EditBrandList from "../components/ui/editBrandList";
 
 const Admin = () => {
   const [productVisible, setProductVisible] = useState(false);
@@ -20,9 +21,10 @@ const Admin = () => {
   const [editBrandVisible, setEditBrandVisible] = useState(false);
 
   const brands = useSelector(getBrands());
-  const types = useSelector(getTypes());
-  const isTypesLoading = useSelector(getTypesLoadingStatus())
+  const isBrandsLoading = useSelector(getBrandsLoadingStatus());
 
+  const types = useSelector(getTypes());
+  const isTypesLoading = useSelector(getTypesLoadingStatus());
 
   return (
     <>
@@ -79,10 +81,14 @@ const Admin = () => {
             <CreateBrand
               show={brandVisible}
               onHide={() => setBrandVisible(false)}
+              header="Добавить новый бренд"
+              header1="Введите название бренда"
             />
             <CreateType
               show={typeVisible}
               onHide={() => setTypeVisible(false)}
+              header="Добавить новый тип"
+              header1="Введите название типа"
             />
           </Col>
           <Col md={9}>
@@ -101,18 +107,22 @@ const Admin = () => {
 
             {editTypeVisible && (
               <>
-              <EditThingList things={types} isLoading={isTypesLoading}/>
+                <EditThingList
+                  things={types}
+                  isLoading={isTypesLoading}
+                  setThingVisible={setTypeVisible}
+                  header="Добавить новый тип"
+                />
               </>
             )}
 
             {editBrandVisible && (
-              <Button
-                variant={"outline-success"}
-                className="mt-4 mb-4 p-2"
-                onClick={() => setTypeVisible(true)}
-              >
-                Добавить бренд
-              </Button>
+              <EditBrandList
+              things={brands}
+              isLoading={isBrandsLoading}
+              setThingVisible={setBrandVisible}
+              header="Добавить новый бренд"
+            />
             )}
           </Col>
         </Row>

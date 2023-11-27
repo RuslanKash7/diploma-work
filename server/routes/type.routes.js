@@ -6,7 +6,7 @@ const isRole = require("../middleware/role.middleware");
 router.delete("/:typeId", async (req, res) => {
   try {
     const { typeId } = req.params;
-    const removedType = await Type.findByIdAndRemove(typeId);
+    await Type.findByIdAndRemove(typeId);
     res.status(200).send(null);
   } catch (e) {
     res.status(500).json({

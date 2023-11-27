@@ -73,9 +73,7 @@ export const createNewType = (payload) => async (dispatch) => {
 export const removeType = (typeId) => async (dispatch) => {
   dispatch(removeTypeRequested());
   try {
-    console.log(typeId)
     const { content } = await typeService.removeType(typeId);
-    console.log(content)
     if (!content) {
       dispatch(typeRemoved(typeId));
     }

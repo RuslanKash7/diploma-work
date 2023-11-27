@@ -1,8 +1,8 @@
 import React from "react";
 import { Row, Button } from "react-bootstrap";
-import EditThingItem from "./editThingItem";
+import EditBrandItem from "./editBrandItem";
 
-const EditThingList = ({ things, isLoading, setThingVisible, header }) => {
+const EditBrandList = ({ things, isLoading, setThingVisible, header }) => {
   if (isLoading) return "Loading from EditThings...";
 
   return (
@@ -16,11 +16,11 @@ const EditThingList = ({ things, isLoading, setThingVisible, header }) => {
       </Button>
       <Row className="d-flex">
         {things.map((thing) => (
-          <EditThingItem key={thing._id} thing={thing} />
+          <EditBrandItem key={thing._id} thing={thing} />
         ))}
       </Row>
     </>
   );
 };
 
-export default EditThingList;
+export default EditBrandList;
