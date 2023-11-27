@@ -1,15 +1,15 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { removeProduct } from "../../store/products";
+import { removeType } from "../../store/type";
 
-const AreYouSure = ({ show, header, onHide, value: productId }) => {
+const AreYouSure = ({ show, header, onHide, value}) => {
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(productId);
-    dispatch(removeProduct(productId));
+    console.log(value);
+    dispatch(removeType(value));
     onHide();
   };
 

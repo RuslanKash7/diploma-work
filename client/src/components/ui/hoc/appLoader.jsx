@@ -21,10 +21,10 @@ const AppLoader = ({ children }) => {
     dispatch(loadTypesList());
     dispatch(loadProductsList());
     dispatch(loadBasketList());
-    dispatch(loadUsersList()); // зачем здесь если ниже тоже вызов идет???!!!!
-    if (isLoggedIn) {
-      dispatch(loadUsersList());
-    }
+    dispatch(loadUsersList());
+    // if (isLoggedIn) {
+    //   dispatch(loadUsersList());
+    // }
   }, [dispatch, isLoggedIn]);
   if (usersStatusLoading) return "loading";
 

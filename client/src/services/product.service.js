@@ -15,7 +15,9 @@ const productService = {
     return data;
   },
   removeProduct: async (productId) => {
+    console.log(productId);
     const { data } = await httpService.delete(productEndpoint + productId);
+    console.log(data);
     return data;
   },
   update: async (payload) => {

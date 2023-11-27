@@ -16,7 +16,7 @@ const Shop = () => {
     setSelectedBrandId(undefined);
     setSearchQuery(target.value);
 };
-console.log(searchQuery)
+
 
   // получение типов
   const isLoadingTypes = useSelector(getTypesLoadingStatus());
@@ -39,6 +39,7 @@ console.log(searchQuery)
   const clearFilter = () => {
     setSelectedTypeId();
     setSelectedBrandId();
+    setSearchQuery("");
   };
 
   return (

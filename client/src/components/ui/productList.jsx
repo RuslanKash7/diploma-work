@@ -5,7 +5,6 @@ import ProductItem from "./productItem";
 import { getProducts, getProductsLoadingStatus } from "../../store/products";
 import Pages from "./pages";
 import { paginate } from "../../utils/paginate";
-import _ from "lodash";
 
 const ProductList = ({ selectedTypeId, selectedBrandId, searchQuery }) => {
   const isLoading = useSelector(getProductsLoadingStatus());
@@ -21,8 +20,6 @@ const ProductList = ({ selectedTypeId, selectedBrandId, searchQuery }) => {
   }, [selectedTypeId, selectedBrandId, searchQuery]);
 
   if (isLoading) return "Loading from NavbarProductList...";
-
-  console.log(searchQuery);
 
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex);
