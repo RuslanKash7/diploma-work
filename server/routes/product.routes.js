@@ -98,7 +98,7 @@ router.get("/:_id", async (req, res) => {
 router.delete("/:productId", async (req, res) => {
   try {
     const { productId } = req.params;
-    const removedProduct = await Product.findByIdAndRemove(productId);
+    await Product.findByIdAndRemove(productId);
     res.status(200).send(null);
   } catch (e) {
     res.status(500).json({

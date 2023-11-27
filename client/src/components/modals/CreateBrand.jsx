@@ -4,7 +4,7 @@ import TextField from "../common/form/textField";
 import { useDispatch } from "react-redux";
 import { createNewBrand } from "../../store/brands";
 
-const CreateBrand = ({ show, onHide }) => {
+const CreateBrand = ({ show, onHide, header, header1 }) => {
   const dispatch = useDispatch();
   const [data, setData] = useState({
     name: "",
@@ -31,13 +31,13 @@ const CreateBrand = ({ show, onHide }) => {
     <Modal show={show} onHide={onHide} size="lg" centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Добавить новый тип товара
+        {header}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
           <TextField
-          label="Введите название товара"
+          label={header1}
           className="mt-3 mb-1"
           name="name"
           value={data.name}

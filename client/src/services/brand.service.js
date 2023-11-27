@@ -10,6 +10,18 @@ const brandsService = {
   createBrand: async (payload) => {
     const { data } = await httpService.post(brandsEndpoint, payload);
     return data;
-},
+  },
+  removeBrand: async (brandId) => {
+    const { data } = await httpService.delete(brandsEndpoint + brandId);
+    return data;
+  },
+
+  update: async (payload) => {
+    const { data } = await httpService.patch(
+      brandsEndpoint + payload.brandId,
+      payload
+    );
+    return data;
+  },
 };
 export default brandsService;
