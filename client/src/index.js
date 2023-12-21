@@ -14,8 +14,8 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <React.StrictMode>
-      <AppLoader>
-        <App />
+        <AppLoader>
+          <App />
         </AppLoader>
       </React.StrictMode>
     </BrowserRouter>

@@ -1,14 +1,22 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { removeBasket } from "../../store/basket"
+import { removeProductFromUserCart } from "../../store/users";
 
-const AreYouSureDelBasket = ({ show, onHide, value: productId }) => {
+
+const AreYouSureDelBasket = ({ show, onHide, value: productId, currentUserId }) => {
   const dispatch = useDispatch();
+
+  // console.log(productId, currentUserId )
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(removeBasket(productId));
+    const newData = {
+      currentUserId,
+      productId,
+    };
+    // console.log(newData)
+    dispatch(removeProductFromUserCart(newData));
     onHide();
   };
 

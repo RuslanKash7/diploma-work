@@ -7,7 +7,6 @@ import LogOut from "./layouts/logOut";
 import Basket from "./layouts/Basket";
 import ProductPage from "./layouts/ProductPage";
 import Shop from "./layouts/Shop";
-// import AppLoader from "./components/ui/hoc/appLoader";
 import { useSelector } from "react-redux";
 import { getIsLoggedIn } from "./store/users";
 import localStorageService from "./services/localStorage.service";
@@ -16,13 +15,9 @@ import { getUserById, getUsersLoadingStatus } from "./store/users";
 function App() {
   const isAuth = useSelector(getIsLoggedIn());
   const isLoading = useSelector(getUsersLoadingStatus());
-  // console.log(isLoading);
   const currentUserId = localStorageService.getUserId();
-  // console.log(currentUserId);
   const theUser = useSelector(getUserById(currentUserId));
-  // console.log(theUser);
   const isAdmin = theUser ? theUser.role === "ADMIN" : false;
-  // console.log(isAdmin);
 
   if (isLoading) return "Loading from App...";
 

@@ -28,6 +28,8 @@ const productsSlice = createSlice({
       state.entities = state.entities.filter((p) => p._id !== action.payload);
     },
     productUpdateSuccessed: (state, action) => {
+      console.log(state)
+      console.log(action)
       state.entities[
         state.entities.findIndex((u) => u._id === action.payload._id)
       ] = action.payload;
@@ -116,6 +118,7 @@ export const updateProduct = (payload) => async (dispatch) => {
   dispatch(updateProductRequested());
   try {
     const { content } = await productService.update(payload);
+    console.log(content)
     dispatch(productUpdateSuccessed(content));
   } catch (error) {
     dispatch(updateProductFailed(error.message));

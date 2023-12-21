@@ -3,20 +3,24 @@ import Row from "react-bootstrap/Row";
 import { useSelector } from "react-redux";
 import BasketItem from "./basketItem";
 import { getProductsLoadingStatus } from "../../store/products";
-import { getBasketByUsersId } from "../../store/basket";
 import localStorageService from "../../services/localStorage.service";
+import { getUserById } from "../../store/users";
 
 const BasketList = () => {
   const isLoading = useSelector(getProductsLoadingStatus());
   const currentUserId = localStorageService.getUserId();
-  const usersBasketOnly = useSelector(getBasketByUsersId(currentUserId));
+  const user = useSelector(getUserById(currentUserId));
 
   if (!isLoading) {
     return (
       <>
         <Row className="d-flex">
-          {usersBasketOnly.map((product) => (
-            <BasketItem key={product.currentuserId} product={product} />
+          {user.cart.map((product) => (
+            <BasketItem
+              key={product.productId}
+              product={product}
+              currentUserId={currentUserId}
+            />
           ))}
         </Row>
       </>
