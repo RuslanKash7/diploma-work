@@ -4,16 +4,22 @@ import { getProductById } from "../store/products";
 import { Container, Card, Button, Col, Image, Row } from "react-bootstrap";
 import bigStar from "../assets/bigStar.png";
 import { useParams } from "react-router-dom";
+import { addUserCart, getCurrentUserData } from "../store/users";
+import { useHistory } from "react-router-dom";
 import localStorageService from "../services/localStorage.service";
-import { addToBasket } from "../store/basket";
 
 const ProductPage = () => {
-  
   const { productId } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const product = useSelector(getProductById(productId));
+
   const currentUserId = localStorageService.getUserId();
+
+  const usersData = useSelector(getCurrentUserData());
+
+  const alreadyAdded = usersData.cart.find((p) => p.productId === productId);
 
   const description = [
     { id: 1, title: "Цвет", description: "Белый" },
@@ -28,10 +34,11 @@ const ProductPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newData = {
-      currentUserId,
       productId,
+      quantity: null,
+      currentUserId
     };
-    dispatch(addToBasket(newData));
+    dispatch(addUserCart(newData));
   };
 
   return (
@@ -73,13 +80,23 @@ const ProductPage = () => {
             }}
           >
             <h3>{product.price} руб.</h3>
-            <Button
-              variant={"outline-primary"}
-              className="mt-2 p-1"
-              onClick={handleSubmit}
-            >
-              Добавить в корзину
-            </Button>
+            {!alreadyAdded ? (
+              <Button
+                variant={"outline-primary"}
+                className="mt-2 p-1"
+                onClick={handleSubmit}
+              >
+                Добавить в корзину
+              </Button>
+            ) : (
+              <Button
+                variant={"outline-success"}
+                className="mt-2 p-1"
+                onClick={() => history.push("/basket")}
+              >
+                Товар добавлен в корзину
+              </Button>
+            )}
           </Card>
         </Col>
       </Row>

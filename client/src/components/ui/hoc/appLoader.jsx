@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getIsLoggedIn,
   getUsersLoadingStatus,
-  loadUsersList,
+  loadUsersList
 } from "../../../store/users";
 import { loadTypesList } from "../../../store/type";
 import { loadBrandsList } from "../../../store/brands";
@@ -22,9 +22,6 @@ const AppLoader = ({ children }) => {
     dispatch(loadProductsList());
     dispatch(loadBasketList());
     dispatch(loadUsersList());
-    // if (isLoggedIn) {
-    //   dispatch(loadUsersList());
-    // }
   }, [dispatch, isLoggedIn]);
   if (usersStatusLoading) return "loading";
 
