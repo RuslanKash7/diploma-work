@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Container, Col, Row } from "react-bootstrap";
 import TypeBar from "../components/ui/typeBar";
 import BrandBar from "../components/ui/brandBar";
 import Card from "react-bootstrap/Card";
@@ -15,8 +14,7 @@ const Shop = () => {
     setSelectedTypeId(undefined);
     setSelectedBrandId(undefined);
     setSearchQuery(target.value);
-};
-
+  };
 
   // получение типов
   const isLoadingTypes = useSelector(getTypesLoadingStatus());
@@ -43,9 +41,9 @@ const Shop = () => {
   };
 
   return (
-    <Container className="mt-2">
-      <Row className="w-100 mt-2">
-        <Col md={3}>
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-3 mx-auto">
           <div className="d-flex flex-column">
             <Card
               onClick={clearFilter}
@@ -62,9 +60,10 @@ const Shop = () => {
               onItemSelect={handleTypeSelect}
             />
           </div>
-        </Col>
-        <Col md={9}>
+        </div>
+        <div className="col-lg-9 mx-auto">
           <input
+            className="mx-3"
             type="text"
             name="searchQuery"
             placeholder="Поиск..."
@@ -83,9 +82,9 @@ const Shop = () => {
             selectedBrandId={selectedBrandId}
             searchQuery={searchQuery}
           />
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };
 

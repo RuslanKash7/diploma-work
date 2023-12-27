@@ -32,7 +32,6 @@ router.post("/", async (req, res) => {
 
 router.patch("/", async (req, res) => {
   try {
-    console.log(req.body);
     const { item, productId, currentUserId } = req.body;
     const user = await User.findById(currentUserId);
 

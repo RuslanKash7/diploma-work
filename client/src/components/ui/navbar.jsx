@@ -15,7 +15,7 @@ const Navbar = () => {
   const isLoading = useSelector(getUsersLoadingStatus());
   const currentUserId = localStorageService.getUserId();
   const theUser = useSelector(getUserById(currentUserId));
-  const isAdmin = theUser ? theUser.role === "ADMIN" : false
+  const isAdmin = theUser ? theUser.role === "ADMIN" : false;
 
   if (isLoading) return "Loading from Navbar...";
 
@@ -25,7 +25,7 @@ const Navbar = () => {
         <ul className="nav">
           <li className="nav-item">
             <Link className="nav-link " aria-current="page" to="/">
-              SP shop
+              Главная страница
             </Link>
           </li>
         </ul>

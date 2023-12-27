@@ -61,8 +61,8 @@ const usersSlice = createSlice({
         state.entities.findIndex((u) => u._id === action.payload._id)
       ] = action.payload;
     },
-    makePurchaseSuccessed:(state, action) => {
-    console.log(action.payload)
+    makePurchaseSuccessed: (state, action) => {
+      console.log(action.payload);
       // state.entities.push(action.payload);
     },
     productRemoved: (state, action) => {
@@ -92,10 +92,7 @@ const {
   authRequestSuccess,
   userLoggedOut,
   userCardAddSuccessed,
-  productRemoved,
-  productRequestFailed,
-  makePurchaseSuccessed
-  // userUpdateSuccessed,
+  makePurchaseSuccessed,
 } = actions;
 
 const authRequested = createAction("users/authRequested");
@@ -171,11 +168,9 @@ export const removeProductFromUserCart = (payload) => async (dispatch) => {
   dispatch(removeProductRequested());
   try {
     const { content } = await cartService.removeProduct(payload);
-    if (!content) {
-      dispatch(productRemoved(payload));
-    }
+    dispatch(userCardAddSuccessed(content));
   } catch (error) {
-    dispatch(productRequestFailed(error.message));
+    dispatch(addUserCartFailed(error.message));
   }
 };
 
@@ -192,9 +187,9 @@ export const changeProdQuantity = (payload) => async (dispatch) => {
 export const makePurchase = (payload) => async (dispatch) => {
   dispatch(makePurchaseRequested());
   try {
-    console.log(payload)
+    console.log(payload);
     const { content } = await cartService.makePurchase(payload);
-    console.log(content)
+    console.log(content);
     dispatch(makePurchaseSuccessed(content));
   } catch (error) {
     dispatch(addUserCartFailed(error.message));

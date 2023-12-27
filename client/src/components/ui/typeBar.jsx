@@ -6,11 +6,11 @@ const TypeBar = ({ isLoadingTypes, selectedItem, items, onItemSelect }) => {
 
   return (
     <>
-      <ListGroup>
+      <ListGroup className="mb-3">
         {items.map((item) => (
           <ListGroup.Item
             onClick={() => onItemSelect(item)}
-            style={{ cursor: "pointer", width: 250  }}
+            style={{ cursor: "pointer", width: 250 }}
             active={item._id === selectedItem ? " active" : ""}
             key={item._id}
           >

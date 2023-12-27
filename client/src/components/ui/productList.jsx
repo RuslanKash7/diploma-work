@@ -63,11 +63,13 @@ const ProductList = ({ selectedTypeId, selectedBrandId, searchQuery }) => {
   if (!isLoading) {
     return (
       <>
-        <Row className="d-flex">
-          {usersCrop.map((product) => (
-            <ProductItem key={product._id} product={product} />
-          ))}
-        </Row>
+        <div className="container mb-5">
+          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {usersCrop.map((product) => (
+              <ProductItem key={product._id} product={product} />
+            ))}
+          </div>
+        </div>
         <Pages
           itemsCount={count}
           pageSize={pageSize}

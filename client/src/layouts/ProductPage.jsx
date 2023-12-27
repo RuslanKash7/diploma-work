@@ -36,7 +36,7 @@ const ProductPage = () => {
     const newData = {
       productId,
       quantity: null,
-      currentUserId
+      currentUserId,
     };
     dispatch(addUserCart(newData));
   };
@@ -50,6 +50,7 @@ const ProductPage = () => {
             height={300}
             src={"http://localhost:8080/" + product.img}
             alt="Product image"
+            className="productPage-img"
           />
         </Col>
         <Col md={4}>

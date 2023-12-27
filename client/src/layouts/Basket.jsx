@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import BasketList from "../components/ui/basketList";
 import { useSelector, useDispatch } from "react-redux";
@@ -25,15 +25,20 @@ const Basket = () => {
 
   const totalSum = calculatedArray.reduce((sum, item) => sum + item.total, 0);
 
-  // console.log(totalSum)
-
-  // const [emptyCart, setEmptyCart] = useState(totalSum === 0);
-
-  // console.log(emptyCart)
-
-  // useEffect(() => {
-  //   console.log(emptyCart)
-  // }, [totalSum]);
+  const formatDate = (dateString) => {
+    const options = {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    };
+    const formattedDate = new Date(dateString).toLocaleDateString(
+      "ru-RU",
+      options
+    );
+    return formattedDate;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,11 +83,16 @@ const Basket = () => {
       )}
       {user.purchase ? (
         <>
-          <h3>История ваших покупок</h3>
-          <Row className="d-flex">
-            {user.purchase.map(() => (
-              <h5>Покупка</h5>
-            ))}
+          <h3 className="d-flex mx-5">История ваших покупок:</h3>
+          <Row className="d-flex mx-5">
+            <ol>
+              {user.purchase.map((e) => (
+                <li>
+                  {formatDate(e.timePurchase)} была совершена покупка на сумму{" "}
+                  {e.totalSum} руб.
+                </li>
+              ))}
+            </ol>
           </Row>
         </>
       ) : (

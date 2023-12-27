@@ -12,7 +12,7 @@ const BasketItem = ({ product, currentUserId }) => {
   const dispatch = useDispatch();
   const [areYouSureVisible, setAreYouSureVisible] = useState(false);
 
-  const {productId} = product
+  const { productId } = product;
 
   const productsList = useSelector(getProductById(productId));
   // console.log(product);
