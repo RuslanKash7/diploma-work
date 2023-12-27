@@ -28,8 +28,8 @@ const productsSlice = createSlice({
       state.entities = state.entities.filter((p) => p._id !== action.payload);
     },
     productUpdateSuccessed: (state, action) => {
-      console.log(state)
-      console.log(action)
+      console.log(state);
+      console.log(action);
       state.entities[
         state.entities.findIndex((u) => u._id === action.payload._id)
       ] = action.payload;
@@ -93,9 +93,9 @@ export const getProductByManyIds = (productIds) => (state) => {
 export const createNewProduct = (payload) => async (dispatch) => {
   dispatch(addProductRequested());
   try {
-    console.log(payload)
+    console.log(payload);
     const { content } = await productService.createProduct(payload);
-    console.log(content)
+    console.log(content);
     dispatch(productCreated(content));
   } catch (error) {
     dispatch(productsRequestFailed(error.message));
@@ -106,6 +106,7 @@ export const removeProduct = (productId) => async (dispatch) => {
   dispatch(removeProductRequested());
   try {
     const { content } = await productService.removeProduct(productId);
+    console.log(content);
     if (!content) {
       dispatch(productRemoved(productId));
     }
@@ -118,7 +119,7 @@ export const updateProduct = (payload) => async (dispatch) => {
   dispatch(updateProductRequested());
   try {
     const { content } = await productService.update(payload);
-    console.log(content)
+    console.log(content);
     dispatch(productUpdateSuccessed(content));
   } catch (error) {
     dispatch(updateProductFailed(error.message));

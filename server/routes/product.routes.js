@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require("fs");
 const router = express.Router({ mergeParams: true });
 const Product = require("../models/Product");
 const ProductInfo = require("../models/ProductInfo");
@@ -7,14 +8,11 @@ const path = require("path");
 
 router.post("/", async (req, res) => {
   try {
-    console.log(req.body)
     let { name, price, brand, type, rating, info } = req.body;
 
     let { img } = req.files;
     let fileName = uuid.v4() + ".jpg";
     img.mv(path.resolve(__dirname, "..", "static", fileName));
-
-    console.log(req.body)
 
     const newProduct = await Product.create({
       name,
@@ -25,8 +23,6 @@ router.post("/", async (req, res) => {
       info,
       img: fileName,
     });
-
-    console.log(newProduct);
 
     if (info) {
       info = JSON.parse(info);
@@ -86,7 +82,7 @@ router.get("/", async (req, res) => {
 router.get("/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
-    const list = await Product.findById({_id}).populate("info"); // .populate([{model: ProductInfo, as: "info"}]) ProductInfo nado kak to po drugomu
+    const list = await Product.findById({ _id }).populate("info"); // .populate([{model: ProductInfo, as: "info"}]) ProductInfo nado kak to po drugomu
     res.status(200).send(list);
   } catch (e) {
     res.status(500).json({
@@ -98,6 +94,13 @@ router.get("/:_id", async (req, res) => {
 router.delete("/:productId", async (req, res) => {
   try {
     const { productId } = req.params;
+    const product = await Product.findById(productId);
+    if (product && product.img) {
+      const filePath = path.resolve(__dirname, "..", "static", product.img);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    }
     await Product.findByIdAndRemove(productId);
     res.status(200).send(null);
   } catch (e) {

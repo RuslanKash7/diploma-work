@@ -46,13 +46,9 @@ router.get("/", auth, async (req, res) => {
 router.delete("/:payload", async (req, res) => {
   try {
     // const { productId, currentUserId } = req.params;
-    console.log(req.body)
+    console.log(req.body);
 
-console.log(req.params)
-// console.log(currentUserId)
-
-    // const removedProduct = await User.cart.findByIdAndRemove(productId);
-    // res.status(200).send(null);
+    console.log(req.params);
   } catch (e) {
     res.status(500).json({
       message: "На сервере произошла ошибка. Попробуйте позже",

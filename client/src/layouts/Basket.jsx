@@ -79,12 +79,12 @@ const Basket = () => {
           </Row>
         </Container>
       ) : (
-        <h3>Корзина пуста</h3>
+        <h2 className="mx-5 mb-5">Корзина пуста</h2>
       )}
-      {user.purchase ? (
+      {user.purchase.length ? (
         <>
-          <h3 className="d-flex mx-5">История ваших покупок:</h3>
-          <Row className="d-flex mx-5">
+          <h4 className="mx-5">История ваших покупок:</h4>
+          <Row className="mx-5">
             <ol>
               {user.purchase.map((e) => (
                 <li>
@@ -96,7 +96,7 @@ const Basket = () => {
           </Row>
         </>
       ) : (
-        ""
+        <h4 className="mx-5">У вас пока не было покупок</h4>
       )}
     </>
   );
