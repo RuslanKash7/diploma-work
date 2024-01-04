@@ -109,11 +109,14 @@ export const login =
   async (dispatch) => {
     const { email, password } = payload;
     dispatch(authRequested());
+    dispatch(usersRequested());
     try {
       const data = await authService.login({ email, password });
       localStorageService.setTokens(data);
       dispatch(authRequestSuccess({ userId: data.userId }));
       console.log(data);
+      const { content } = await userService.get();
+      dispatch(usersReceved(content));
       history.push("/");
     } catch (error) {
       const { code, message } = error.response.data.error;

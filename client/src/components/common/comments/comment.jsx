@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { displayDate } from "../../../utils/displayDate";
-import { getCurrentUserId, getUserById } from "../../../store/users";
+import { getUserById } from "../../../store/users";
 import { useSelector } from "react-redux";
 import localStorageService from "../../../services/localStorage.service";
 
@@ -31,8 +31,8 @@ const Comment = ({
               <div className="mb-4">
                 <div className="d-flex justify-content-between align-items-center">
                   <p className="mb-1 ">
-                    Пользователь {userId}
-                    <span className="small"> - {displayDate(created)}</span>
+                    {user && user.name}{" "}
+                    <span className="small">- {displayDate(created)}</span>
                   </p>
                   {currentUserId === userId && (
                     <button

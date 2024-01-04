@@ -4,6 +4,7 @@ import TextField from "../common/form/textField";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/users";
+import { getUsersLoadingStatus, loadUsersList } from "../../store/users";
 
 const LoginForm = () => {
   const history = useHistory();
@@ -12,24 +13,23 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   // const loginError = useSelector(getAuthErrors());
 
-
   const handleChange = (target) => {
     setData((prevState) => ({
       ...prevState,
-      [target.name]: target.value
+      [target.name]: target.value,
     }));
   };
   const validatorConfig = {
     email: {
       isRequired: {
-        message: "Электронная почта обязательна для заполнения"
-      }
+        message: "Электронная почта обязательна для заполнения",
+      },
     },
     password: {
       isRequired: {
-        message: "Пароль обязателен для заполнения"
-      }
-    }
+        message: "Пароль обязателен для заполнения",
+      },
+    },
   };
   useEffect(() => {
     validate();

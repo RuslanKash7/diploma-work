@@ -10,6 +10,7 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [data, setData] = useState({
+    name: "",
     email: "",
     password: "",
     role: "USER",
@@ -83,6 +84,13 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <TextField
+        label="Имя"
+        name="name"
+        value={data.name}
+        onChange={handleChange}
+        error={errors.name}
+      />
       <TextField
         label="Электронная почта"
         name="email"

@@ -61,6 +61,17 @@ const Navbar = () => {
                   </Link>
                 </li>
               )}
+              {isAuth && (
+                <span
+                  className="nav-link"
+                  style={{
+                    color: "pink",
+                    fontStyle: "italic",
+                  }}
+                >
+                  Здравствуйте, {theUser.name}!
+                </span>
+              )}
               <li>
                 {!isAuth ? (
                   <Link
@@ -73,15 +84,6 @@ const Navbar = () => {
                   </Link>
                 ) : (
                   <div>
-                    {/* <form onSubmit={logOut()}>
-                    <Button
-                      variant={"outline-light"}
-                      className="nav-link"
-                      type="submit"
-                    >
-                      Выйти
-                    </Button>
-                  </form> */}
                     <Link
                       className="nav-link"
                       aria-current="page"

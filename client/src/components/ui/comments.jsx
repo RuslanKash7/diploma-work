@@ -8,6 +8,7 @@ import {
   loadCommentsList,
   removeComment,
 } from "../../store/comments";
+import { getIsLoggedIn } from "../../store/users";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -17,9 +18,12 @@ const Comments = () => {
   useEffect(() => {
     dispatch(loadCommentsList(productId));
   }, [dispatch, productId]);
+
   const isLoading = useSelector(getCommentsLoadingStatus());
 
   const comments = useSelector(getComments());
+  const isAuth = useSelector(getIsLoggedIn());
+  console.log(isAuth);
 
   const handleSubmit = (data) => {
     dispatch(createComment({ ...data, productId: productId }));
@@ -33,11 +37,13 @@ const Comments = () => {
 
   return (
     <>
-      <div className="card mb-2">
-        <div className="card-body ">
-          <AddCommentForm onSubmit={handleSubmit} />
+      {isAuth && (
+        <div className="card mb-2">
+          <div className="card-body ">
+            <AddCommentForm onSubmit={handleSubmit} />
+          </div>
         </div>
-      </div>
+      )}
       {sortedComments.length > 0 && (
         <div className="card mb-3">
           <div className="card-body ">

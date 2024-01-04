@@ -16,7 +16,7 @@ const BasketItem = ({ product, currentUserId }) => {
 
   const productsList = useSelector(getProductById(productId));
   // console.log(product);
-  // console.log(productsList);
+  console.log(productsList);
   // console.log(currentUserId);
 
   const brandId = productsList.brand.join(", "); // тут нужно получать строку, а не массив!!!

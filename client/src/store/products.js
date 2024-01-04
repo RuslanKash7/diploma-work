@@ -63,33 +63,6 @@ export const loadProductsList = () => async (dispatch) => {
   }
 };
 
-export const getProducts = () => (state) => state.products.entities;
-
-export const getProductsLoadingStatus = () => (state) =>
-  state.products.isLoading;
-
-export const getProductById = (productId) => (state) => {
-  if (state.products.entities) {
-    return state.products.entities.find((p) => p._id === productId);
-  }
-};
-
-export const getProductByManyIds = (productIds) => (state) => {
-  if (state.products.entities) {
-    const productsArray = [];
-    for (const prodId of productIds) {
-      for (const product of state.products.entities) {
-        if (product._id === prodId) {
-          productsArray.push(product);
-          break;
-        }
-      }
-    }
-    return productsArray;
-  }
-  return [];
-};
-
 export const createNewProduct = (payload) => async (dispatch) => {
   dispatch(addProductRequested());
   try {
@@ -124,6 +97,33 @@ export const updateProduct = (payload) => async (dispatch) => {
   } catch (error) {
     dispatch(updateProductFailed(error.message));
   }
+};
+
+export const getProducts = () => (state) => state.products.entities;
+
+export const getProductsLoadingStatus = () => (state) =>
+  state.products.isLoading;
+
+export const getProductById = (productId) => (state) => {
+  if (state.products.entities) {
+    return state.products.entities.find((p) => p._id === productId);
+  }
+};
+
+export const getProductByManyIds = (productIds) => (state) => {
+  if (state.products.entities) {
+    const productsArray = [];
+    for (const prodId of productIds) {
+      for (const product of state.products.entities) {
+        if (product._id === prodId) {
+          productsArray.push(product);
+          break;
+        }
+      }
+    }
+    return productsArray;
+  }
+  return [];
 };
 
 export default productsReducer;

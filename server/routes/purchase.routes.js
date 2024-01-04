@@ -10,8 +10,9 @@ router.post("/", async (req, res) => {
       return res.status(404).json({ message: "Пользователь не найден" });
     }
     user.purchase.push({ userCart, totalSum, timePurchase });
-    user.cart = []
+    user.cart = [];
     const updatedUser = await user.save();
+    console.log(updatedUser);
     res.status(201).json(updatedUser);
   } catch (e) {
     res.status(500).json({
