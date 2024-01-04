@@ -29,7 +29,7 @@ router.post("/signUp", [
       if (existingUser) {
         return res.status(400).json({
           error: {
-            message: "email exists",
+            message: "User is exists",
             code: 400,
           },
         });
@@ -42,9 +42,9 @@ router.post("/signUp", [
         password: hashedPassword,
       });
 
-      const newBasket = await Basket.create({
-        currentUserId: newUser._id,
-      });
+      // const newBasket = await Basket.create({
+      //   currentUserId: newUser._id,
+      // });
 
       const tokens = tokenService.generate({
         _id: newUser._id,
@@ -86,7 +86,7 @@ router.post("/signInWithPassword", [
       if (!existingUser) {
         return res.status(400).send({
           error: {
-            message: "email is not found",
+            message: "User is not found",
             code: 400,
           },
         });

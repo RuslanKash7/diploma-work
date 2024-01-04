@@ -12,7 +12,7 @@ const BrandBar = ({ isLoadingBrands, selectedItem, items, onItemSelect }) => {
           <Card
             onClick={() => onItemSelect(item)}
             border={item._id === selectedItem ? "primary" : ""}
-            style={{ cursor: "pointer", width: 120 }}
+            style={{ cursor: "pointer", width: 120, textAlign: "center" }}
             key={item._id}
             className={`m-1 p-2 ${
               item._id === selectedItem ? "bg-primary text-white" : ""

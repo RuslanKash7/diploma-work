@@ -2,11 +2,13 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductById } from "../store/products";
 import { Container, Card, Button, Col, Image, Row } from "react-bootstrap";
-import bigStar from "../assets/bigStar.png";
+// import bigStar from "../assets/bigStar.png";
 import { useParams } from "react-router-dom";
 import { addUserCart, getCurrentUserData } from "../store/users";
 import { useHistory } from "react-router-dom";
 import localStorageService from "../services/localStorage.service";
+import Comments from "../components/ui/comments";
+import BackHistoryButton from "../components/common/backButton";
 
 const ProductPage = () => {
   const { productId } = useParams();
@@ -18,8 +20,6 @@ const ProductPage = () => {
   const currentUserId = localStorageService.getUserId();
 
   const usersData = useSelector(getCurrentUserData());
-
-  const alreadyAdded = usersData.cart.find((p) => p.productId === productId);
 
   const description = [
     { id: 1, title: "Цвет", description: "Белый" },
@@ -43,6 +43,7 @@ const ProductPage = () => {
 
   return (
     <Container className="mt-3">
+      <BackHistoryButton />
       <Row>
         <Col md={4}>
           <Image
@@ -56,7 +57,7 @@ const ProductPage = () => {
         <Col md={4}>
           <Row className="d-flex flex-column align-items-center">
             <h2>{product.name}</h2>
-            <div
+            {/* <div
               className="d-flex align-items-center justify-content-center"
               style={{
                 background: `url(${bigStar}) no-repeat center center`,
@@ -67,7 +68,7 @@ const ProductPage = () => {
               }}
             >
               {product.rating}
-            </div>
+            </div> */}
           </Row>
         </Col>
         <Col md={4}>
@@ -81,21 +82,31 @@ const ProductPage = () => {
             }}
           >
             <h3>{product.price} руб.</h3>
-            {!alreadyAdded ? (
+            {usersData ? (
+              !usersData.cart.find((p) => p.productId === productId) ? (
+                <Button
+                  variant={"outline-primary"}
+                  className="mt-2 p-1"
+                  onClick={handleSubmit}
+                >
+                  Добавить в корзину
+                </Button>
+              ) : (
+                <Button
+                  variant={"outline-success"}
+                  className="mt-2 p-1"
+                  onClick={() => history.push("/basket")}
+                >
+                  Товар добавлен в корзину
+                </Button>
+              )
+            ) : (
               <Button
                 variant={"outline-primary"}
                 className="mt-2 p-1"
-                onClick={handleSubmit}
+                onClick={() => history.push("/auth/login")}
               >
                 Добавить в корзину
-              </Button>
-            ) : (
-              <Button
-                variant={"outline-success"}
-                className="mt-2 p-1"
-                onClick={() => history.push("/basket")}
-              >
-                Товар добавлен в корзину
               </Button>
             )}
           </Card>
@@ -114,6 +125,9 @@ const ProductPage = () => {
             {desc.title}: {desc.description}
           </Row>
         ))}
+      </Row>
+      <Row>
+        <Comments />
       </Row>
     </Container>
   );

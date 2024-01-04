@@ -1,0 +1,16 @@
+const { Schema, model } = require("mongoose");
+
+const schema = new Schema(
+  {
+    content: { type: String, required: true },
+    // страница продукта
+    productId: { type: Schema.Types.ObjectId, ref: "Product", required: true },
+    // Кто оставил коммент
+    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  },
+  {
+    timestamps: { createdAt: "created_at" },
+  }
+);
+
+module.exports = model("Comment", schema);

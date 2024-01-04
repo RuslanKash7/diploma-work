@@ -28,7 +28,7 @@ const typesSlice = createSlice({
     },
     typeUpdateSuccessed: (state, action) => {
       state.entities[
-        state.entities.findIndex((u) => u._id === action.payload._id)
+        state.entities.findIndex((t) => t._id === action.payload._id)
       ] = action.payload;
     },
   },

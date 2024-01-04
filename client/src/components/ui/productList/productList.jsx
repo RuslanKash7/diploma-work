@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Row from "react-bootstrap/Row";
 import { useSelector } from "react-redux";
-import ProductItem from "./productItem";
-import { getProducts, getProductsLoadingStatus } from "../../store/products";
-import Pages from "./pages";
-import { paginate } from "../../utils/paginate";
+import ProductItem from "../../ui/productItem";
+import { getProducts, getProductsLoadingStatus } from "../../../store/products";
+import Pages from "../pages";
+import { paginate } from "../../../utils/paginate";
+import styles from "./productList.module.css";
 
 const ProductList = ({ selectedTypeId, selectedBrandId, searchQuery }) => {
   const isLoading = useSelector(getProductsLoadingStatus());
@@ -56,6 +56,8 @@ const ProductList = ({ selectedTypeId, selectedBrandId, searchQuery }) => {
     selectedBrandId
   );
 
+  if (!filteredProducts) return "Loading from filteredProducts...";
+
   const count = filteredProducts.length;
 
   const usersCrop = paginate(filteredProducts, currentPage, pageSize);
@@ -63,7 +65,7 @@ const ProductList = ({ selectedTypeId, selectedBrandId, searchQuery }) => {
   if (!isLoading) {
     return (
       <>
-        <div className="container mb-5">
+        <div className={styles.item}>
           <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             {usersCrop.map((product) => (
               <ProductItem key={product._id} product={product} />

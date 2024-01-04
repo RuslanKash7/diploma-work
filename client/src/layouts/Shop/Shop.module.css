@@ -1,0 +1,11 @@
+.container {
+  max-width: 100%;
+  padding: 15px;
+}
+
+.input {
+  margin-left: 3px;
+  margin-right: 3px;
+  width: 100%;
+  font-family: inherit;
+}

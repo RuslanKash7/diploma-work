@@ -3,14 +3,14 @@ import usersReducer from "./users";
 import productsReducer from "./products";
 import typesReducer from "./type";
 import brandsReducer from "./brands";
-import basketReducer from "./basket";
+import commentsReducer from "./comments";
 
 const rootReducer = combineReducers({
   products: productsReducer,
   users: usersReducer,
   types: typesReducer,
   brands: brandsReducer,
-  basket: basketReducer,
+  comments: commentsReducer,
 });
 
 export function createStore() {

@@ -3,8 +3,8 @@ import history from "../utils/history";
 import authService from "../services/auth.service";
 import localStorageService from "../services/localStorage.service";
 import userService from "../services/user.service";
-import { generetaAuthError } from "../utils/generateAuthError";
 import cartService from "../services/cart.service";
+import { generetaAuthError } from "../utils/generateAuthError";
 
 const initialState = localStorageService.getAccessToken()
   ? {
@@ -36,7 +36,7 @@ const usersSlice = createSlice({
       state.dataLoaded = true;
       state.isLoading = false;
     },
-    usersRequestFiled: (state, action) => {
+    usersRequestFailed: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
     },
@@ -87,7 +87,7 @@ const { reducer: usersReducer, actions } = usersSlice;
 const {
   usersRequested,
   usersReceved,
-  usersRequestFiled,
+  usersRequestFailed,
   authRequestFailed,
   authRequestSuccess,
   userLoggedOut,
@@ -150,7 +150,7 @@ export const loadUsersList = () => async (dispatch) => {
     const { content } = await userService.get();
     dispatch(usersReceved(content));
   } catch (error) {
-    dispatch(usersRequestFiled(error.message));
+    dispatch(usersRequestFailed(error.message));
   }
 };
 

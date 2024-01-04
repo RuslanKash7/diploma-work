@@ -13,7 +13,9 @@ const Pages = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
         {pages.map((page) => (
           <Pagination.Item
             key={page}
-            className={"page-item " + (page === currentPage ? "active" : "")}
+            className={
+              "mt-3  page-item " + (page === currentPage ? "active" : "")
+            }
             onClick={() => {
               onPageChange(page);
             }}

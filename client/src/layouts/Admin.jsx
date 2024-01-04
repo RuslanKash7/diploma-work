@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import CreateProduct from "../components/modals/CreateProduct";
@@ -11,6 +12,9 @@ import EditThingList from "../components/ui/editThingList";
 import EditBrandList from "../components/ui/editBrandList";
 
 const Admin = () => {
+  const history = useHistory();
+  const { change } = useParams();
+
   const [productVisible, setProductVisible] = useState(false);
   const [editProductVisible, setEditProductVisible] = useState(false);
 
@@ -36,11 +40,9 @@ const Admin = () => {
               className="m-2 p-2"
               style={{ width: "200px" }}
               onClick={() => {
-                setEditProductVisible((prevState) =>
-                  prevState === false ? true : false
-                );
-                setEditTypeVisible(false);
-                setEditBrandVisible(false);
+                const newPath =
+                  change === "products" ? "/admin/" : "/admin/products";
+                history.push(newPath);
               }}
             >
               ИЗМЕНИТЬ ТОВАРЫ
@@ -50,11 +52,8 @@ const Admin = () => {
               className="m-2 p-2"
               style={{ width: "200px" }}
               onClick={() => {
-                setEditTypeVisible((prevState) =>
-                  prevState === false ? true : false
-                );
-                setEditProductVisible(false);
-                setEditBrandVisible(false);
+                const newPath = change === "types" ? "/admin/" : "/admin/types";
+                history.push(newPath);
               }}
             >
               ИЗМЕНИТЬ ТИПЫ
@@ -64,35 +63,16 @@ const Admin = () => {
               className="m-2 p-2"
               style={{ width: "200px" }}
               onClick={() => {
-                setEditBrandVisible((prevState) =>
-                  prevState === false ? true : false
-                );
-                setEditTypeVisible(false);
-                setEditProductVisible(false);
+                const newPath =
+                  change === "brands" ? "/admin/" : "/admin/brands";
+                history.push(newPath);
               }}
             >
               ИЗМЕНИТЬ БРЕНДЫ
             </Button>
-            <CreateProduct
-              show={productVisible}
-              onHide={() => setProductVisible(false)}
-              header="Добавить новый товар"
-            />
-            <CreateBrand
-              show={brandVisible}
-              onHide={() => setBrandVisible(false)}
-              header="Добавить новый бренд"
-              header1="Введите название бренда"
-            />
-            <CreateType
-              show={typeVisible}
-              onHide={() => setTypeVisible(false)}
-              header="Добавить новый тип"
-              header1="Введите название типа"
-            />
           </Col>
           <Col md={9}>
-            {editProductVisible && (
+            {change === "products" && (
               <>
                 <Button
                   variant={"outline-success"}
@@ -104,8 +84,7 @@ const Admin = () => {
                 <EditProductList />
               </>
             )}
-
-            {editTypeVisible && (
+            {change === "types" && (
               <>
                 <EditThingList
                   things={types}
@@ -115,18 +94,34 @@ const Admin = () => {
                 />
               </>
             )}
-
-            {editBrandVisible && (
+            {change === "brands" && (
               <EditBrandList
-              things={brands}
-              isLoading={isBrandsLoading}
-              setThingVisible={setBrandVisible}
-              header="Добавить новый бренд"
-            />
+                things={brands}
+                isLoading={isBrandsLoading}
+                setThingVisible={setBrandVisible}
+                header="Добавить новый бренд"
+              />
             )}
           </Col>
         </Row>
       </Container>
+      <CreateProduct
+        show={productVisible}
+        onHide={() => setProductVisible(false)}
+        header="Добавить новый товар"
+      />
+      <CreateBrand
+        show={brandVisible}
+        onHide={() => setBrandVisible(false)}
+        header="Добавить новый бренд"
+        header1="Введите название бренда"
+      />
+      <CreateType
+        show={typeVisible}
+        onHide={() => setTypeVisible(false)}
+        header="Добавить новый тип"
+        header1="Введите название типа"
+      />
     </>
   );
 };

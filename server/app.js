@@ -5,7 +5,7 @@ const chalk = require("chalk");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const routes = require("./routes");
-const path = require("path")
+const path = require("path");
 
 const app = express();
 
@@ -26,9 +26,6 @@ if (process.env.NODE_ENV === "production") {
 
 async function start() {
   try {
-    // mongoose.connection.once("open", () => {
-    //   initDatabase();
-    // });
     await mongoose.connect(config.get("mongoUri"));
     console.log(chalk.green(`MongoDB connected.`));
     app.listen(PORT, () =>
